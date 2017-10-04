@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:local="clr-namespace:BaseChanger" x:Class="BaseChanger.BaseChangerPage">
+    <StackLayout HorizontalOptions = "Center" VerticalOptions = "Center" >
+        <StackLayout Orientation="Horizontal">
+            <Label Text= "Binary"/>
+            <Entry x:Name= "binary" Placeholder = "Binary                    "/>
+        </StackLayout>
+        <StackLayout Orientation="Horizontal">
+            <Label Text= "Octal"/>
+            <Entry x:Name= "octal" Placeholder = "Octal                        "/>
+        </StackLayout>
+         <StackLayout Orientation="Horizontal">
+            <Label Text= "Hexidecimal"/>
+            <Entry x:Name= "hex" Placeholder = "Hexidecimal"/>
+        </StackLayout>        
+        <StackLayout Orientation="Horizontal">
+            <Label Text= "Decimal"/>
+            <Entry x:Name= "dec" Placeholder = "Deicimal              "/>
+        </StackLayout>
+        <Button x:Name = "convert" Clicked = "Run" Text = "Convert!"/>
+        <Button x:Name = "clear" Clicked = "Clear" Text = "Clear"/>
+        <StackLayout Orientation="Horizontal">
+            <Label Text= "Signed?" />
+            <Switch x:Name = "signed"/>
+            <Label Text= "Bits?" />
+            <Entry x:Name = "numBits" Placeholder = "16"/>
+        </StackLayout>
+    </StackLayout>
+</ContentPage>
