@@ -13,7 +13,8 @@ namespace BaseChanger
         public void Run(object Sender, EventArgs e){
             //checks signed toggle. 
             if (signed.IsToggled){
-				if (dec.Text != null)
+				
+                if (dec.Text != null)
 				{
 					try
 					{
@@ -44,22 +45,58 @@ namespace BaseChanger
 				}
 				else if (binary.Text != null)
 				{
-					dec.Text = BinaryToDecimal();
+                    
 					octal.Text = BinaryToOctal();
 					hex.Text = BinaryToHex();
+                    if(binary.Text.ToCharArray()[0]=='1'){
+                        String temp = binary.Text;
+                        binary.Text = TwosCompliment();
+                        dec.Text = "-" + BinaryToDecimal();
+                        binary.Text = temp;
+
+                    }
+                    else{
+						dec.Text = BinaryToDecimal();
+					}
 				}
 				else if (octal.Text != null)
 				{
 					binary.Text = OctalToBinary();
-					dec.Text = BinaryToDecimal();
 					hex.Text = BinaryToHex();
+
+					if (binary.Text.ToCharArray()[0] == '1')
+					{
+						String temp = binary.Text;
+						binary.Text = TwosCompliment();
+						dec.Text = "-" + BinaryToDecimal();
+						binary.Text = temp;
+
+					}
+					else
+					{
+						dec.Text = BinaryToDecimal();
+					}
 				}
 				else if (hex.Text != null)
 				{
 					binary.Text = HexToBinary();
-					dec.Text = BinaryToDecimal();
 					octal.Text = BinaryToOctal();
+					if (binary.Text.ToCharArray()[0] == '1')
+					{
+						String temp = binary.Text;
+						binary.Text = TwosCompliment();
+						dec.Text = "-" + BinaryToDecimal();
+						binary.Text = temp;
+
+					}
+					else
+					{
+						dec.Text = BinaryToDecimal();
+					}
 				}
+                else{
+                    DisplayAlert("Error", "You must clear feilds", "Okay");
+                }
                 
             }
             else
@@ -106,6 +143,10 @@ namespace BaseChanger
                     dec.Text = BinaryToDecimal();
                     octal.Text = BinaryToOctal();
                 }
+				else
+				{
+					DisplayAlert("Error", "You must clear feilds", "Okay");
+				}
             }
         }
         public void Clear(object Sender, EventArgs e){
@@ -113,11 +154,14 @@ namespace BaseChanger
             octal.Text = null;
             hex.Text = null;
             dec.Text = null;
+            numBits.Text = null;
             binary.Placeholder = "Binary";
             octal.Placeholder = "Octal";
             hex.Placeholder = "Hexidecimal";
             dec.Placeholder = "Decimal";
+            numBits.Placeholder = "16";
             signed.IsToggled = false;
+
             
         }
         public String BinaryToDecimal(){
@@ -165,7 +209,7 @@ namespace BaseChanger
 		}
         public String TwosCompliment()
         {
-            if (int.Parse(numBits.Text) < binary.Text.Length)
+            if (int.Parse(numBits.Text) < binary.Text.Length )
             {
                 DisplayAlert("Error", "Num of bits too small", "Okay");
                 return " ";
