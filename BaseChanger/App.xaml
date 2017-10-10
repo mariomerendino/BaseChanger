@@ -13,7 +13,6 @@
             <Style TargetType="Entry">
                 <Setter Property= "TextColor" Value = "#000000"/>
                 <Setter Property="BackgroundColor" Value="#ECF0F1" />
-
             </Style>
 
         </ResourceDictionary>

@@ -10,14 +10,31 @@ namespace BaseChanger
             InitializeComponent();
         }
         //If caluclate button is clicked. 
-        public void Run(object Sender, EventArgs e){
-            //checks signed toggle. 
-            if (signed.IsToggled){
-				isSigned();
+        public void Run(object Sender, EventArgs e)
+        {
+            //Checks if atleast one field is enterd. 
+            if ((dec.Text == "" || dec.Text == null) && (hex.Text == "" || hex.Text == null) && (octal.Text == "" || octal.Text == null) && (binary.Text == "" || binary.Text == null))
+            {
+                DisplayAlert("Error", "One field must be filled", "Okay");
+                Clear(null, null);
+
             }
-            //if unsigned
-            else{
-                notSigned();
+            //checks format 
+            else if(!checkOctal() || !checkDecimal() || !checkBinary() || !checkHex()){
+                
+            }
+            //checks signed toggle.
+            else
+            {
+                if (signed.IsToggled)
+                {
+                    isSigned();
+                }
+                //if unsigned
+                else
+                {
+                    notSigned();
+                }
             }
             
         }
@@ -260,13 +277,16 @@ namespace BaseChanger
         //Checks Binary Format 
         public bool checkBinary(){
             bool ans = true;
-            if(binary.Text == null)
+            if(binary.Text == null|| binary.Text == "")
                 return ans;
             else{
+                
                 char[] b = binary.Text.ToCharArray();
                 for (int i = 0; i < b.Length; i++)
                 {
-                    if (b[i] != 0 && b[i] != 1){
+                    if (b[i] != '0' && b[i] != '1'){
+                        DisplayAlert("Error", "B[i]: " + b[i].ToString() , "Okay");
+                        DisplayAlert("Error", "Incorrect format", "Okay");
                         return false;
                     } 
                 }
@@ -277,7 +297,7 @@ namespace BaseChanger
         public bool checkDecimal()
         {
             bool ans = true;
-            if (dec.Text == null)
+            if (dec.Text == null|| dec.Text == "")
                 return ans;
             else
             {
@@ -285,6 +305,7 @@ namespace BaseChanger
                     int d = int.Parse(dec.Text);
                 }
                 catch(Exception e){
+                    DisplayAlert("Error", "Incorrect format", "Okay");
                     return false;
                 }
 
@@ -296,11 +317,23 @@ namespace BaseChanger
         public bool checkHex()
         {
             bool ans = true;
-            if (hex.Text == null)
+            if (hex.Text == null|| hex.Text == "")
                 return ans;
             else
             {
-                //TO DO, CHECK HEX FORMAT
+                char[] h = hex.Text.ToCharArray();
+                for (int i = 0; i < h.Length; i++)
+                {
+                    ans = ((h[i] >= '0' && h[i] <= '9') ||
+                           (h[i] >= 'a' && h[i] <= 'f') ||
+                           (h[i]>= 'A' && h[i] <= 'F'));
+
+                    if (!ans)
+                    {
+                        DisplayAlert("Error", "Incorrect format", "Okay");
+                        return false;
+                    }
+                }
             }
             return ans;
         }
@@ -308,14 +341,23 @@ namespace BaseChanger
         public bool checkOctal()
         {
             bool ans = true;
-            if (octal.Text == null)
+            if (octal.Text == null || octal.Text =="")
                 return ans;
             else
             {
-                //TO DO, CHECK OCTAL FORMAT
+                char[] o = octal.Text.ToCharArray();
+                for (int i = 0; i < o.Length; i++)
+                {
+                    ans = (o[i] >= '0' && o[i] <= '7');
+
+                    if (!ans)
+                    {
+                        DisplayAlert("Error", "Incorrect format", "Okay");
+                        return false;
+                    }
+                }
             }
             return ans;
-
         }
     }
 }
