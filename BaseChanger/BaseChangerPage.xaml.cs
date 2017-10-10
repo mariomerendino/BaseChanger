@@ -257,6 +257,7 @@ namespace BaseChanger
                 return bin;
             }
         }
+        //Checks Binary Format 
         public bool checkBinary(){
             bool ans = true;
             if(binary.Text == null)
@@ -272,6 +273,7 @@ namespace BaseChanger
             }
             return ans;
         }
+        //Checks decimal format
         public bool checkDecimal()
         {
             bool ans = true;
@@ -290,6 +292,7 @@ namespace BaseChanger
             return ans;
 
         }
+        //Checks hex format
         public bool checkHex()
         {
             bool ans = true;
@@ -300,8 +303,8 @@ namespace BaseChanger
                 //TO DO, CHECK HEX FORMAT
             }
             return ans;
-
         }
+        //checks octal format
         public bool checkOctal()
         {
             bool ans = true;
