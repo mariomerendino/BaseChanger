@@ -257,5 +257,62 @@ namespace BaseChanger
                 return bin;
             }
         }
+        public bool checkBinary(){
+            bool ans = true;
+            if(binary.Text == null)
+                return ans;
+            else{
+                char[] b = binary.Text.ToCharArray();
+                for (int i = 0; i < b.Length; i++)
+                {
+                    if (b[i] != 0 && b[i] != 1){
+                        return false;
+                    } 
+                }
+            }
+            return ans;
+        }
+        public bool checkDecimal()
+        {
+            bool ans = true;
+            if (dec.Text == null)
+                return ans;
+            else
+            {
+                try{
+                    int d = int.Parse(dec.Text);
+                }
+                catch(Exception e){
+                    return false;
+                }
+
+            }
+            return ans;
+
+        }
+        public bool checkHex()
+        {
+            bool ans = true;
+            if (hex.Text == null)
+                return ans;
+            else
+            {
+                //TO DO, CHECK HEX FORMAT
+            }
+            return ans;
+
+        }
+        public bool checkOctal()
+        {
+            bool ans = true;
+            if (octal.Text == null)
+                return ans;
+            else
+            {
+                //TO DO, CHECK OCTAL FORMAT
+            }
+            return ans;
+
+        }
     }
 }
