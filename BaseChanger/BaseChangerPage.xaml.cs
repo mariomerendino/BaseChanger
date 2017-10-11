@@ -86,8 +86,8 @@ namespace BaseChanger
             }
             else if (octal.Text != null)
             {
-                binary.Text = addZeros();
                 binary.Text = OctalToBinary();
+                binary.Text = addZeros();
                 hex.Text = BinaryToHex();
 
                 if (binary.Text.ToCharArray()[0] == '1')
@@ -105,8 +105,8 @@ namespace BaseChanger
             }
             else if (hex.Text != null)
             {
-                binary.Text = addZeros();
                 binary.Text = HexToBinary();
+                binary.Text = addZeros();
                 octal.Text = BinaryToOctal();
                 if (binary.Text.ToCharArray()[0] == '1')
                 {
