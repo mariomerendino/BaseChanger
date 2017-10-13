@@ -5,6 +5,8 @@ namespace BaseChanger
 {
     public partial class BaseChangerPage : ContentPage
     {
+        //Checks if the current input has already been ran
+        public bool CurrentInputRan = false;
         public BaseChangerPage()
         {
             InitializeComponent();
@@ -13,19 +15,25 @@ namespace BaseChanger
         public void Run(object Sender, EventArgs e)
         {
             //Checks if atleast one field is enterd. 
-            if ((dec.Text == "" || dec.Text == null) && (hex.Text == "" || hex.Text == null) && (octal.Text == "" || octal.Text == null) && (binary.Text == "" || binary.Text == null))
+            if ((dec.Text == "" || dec.Text == null) &&
+                (hex.Text == "" || hex.Text == null) &&
+                (octal.Text == "" || octal.Text == null) &&
+                (binary.Text == "" || binary.Text == null))
             {
                 DisplayAlert("Error", "One field must be filled", "Okay");
                 Clear(null, null);
 
             }
             //checks format 
-            else if(!checkOctal() || !checkDecimal() || !checkBinary() || !checkHex()){
-                
+            else if (!checkOctal() || !checkDecimal() ||
+                    !checkBinary() || !checkHex())
+            {
+
             }
             //checks signed toggle.
             else
             {
+                CurrentInputRan = true;
                 if (signed.IsToggled)
                 {
                     isSigned();
@@ -36,7 +44,18 @@ namespace BaseChanger
                     notSigned();
                 }
             }
-            
+
+        }
+        public void TextChange(object sender, EventArgs e){
+            if (CurrentInputRan)
+                Clear(null, null);
+            else{
+                
+            }
+        }
+        public void BitBoxChanged(object sender, EventArgs e)
+        {
+            signed.IsToggled = true;
         }
         //Function is run if the bottom toggle is on. 
         public void isSigned(){
@@ -64,6 +83,7 @@ namespace BaseChanger
                 catch (Exception ex)
                 {
                     DisplayAlert("Error", "Invalid input", "Okay");
+
 
                 }
 
@@ -133,7 +153,8 @@ namespace BaseChanger
                 {
                     if (int.Parse(dec.Text) < 0)
                     {
-                        DisplayAlert("Error", "You cannot have a negative number", "Okay");
+                        DisplayAlert("Error", "You cannot have a negative" +
+                                     " number", "Okay");
                         Clear(null, null);
                     }
                     else
@@ -187,6 +208,7 @@ namespace BaseChanger
             dec.Placeholder = "Decimal";
             numBits.Placeholder = "16";
             signed.IsToggled = false;
+            CurrentInputRan = false;
 
             
         }
@@ -256,7 +278,8 @@ namespace BaseChanger
                 int one = Convert.ToInt32("1", 2);
                 return Convert.ToString(flipped + one, 2);
         }
-        //Returns a binary value with the correct amount of bits, according to how many signed bits. 
+        //Returns a binary value with the correct amount of bits, according 
+        //to how many signed bits. 
         public String addZeros()
         {
             if (int.Parse(numBits.Text) < binary.Text.Length ){
@@ -285,7 +308,8 @@ namespace BaseChanger
                 for (int i = 0; i < b.Length; i++)
                 {
                     if (b[i] != '0' && b[i] != '1'){
-                        DisplayAlert("Error", "B[i]: " + b[i].ToString() , "Okay");
+                        DisplayAlert("Error", "B[i]: " + b[i].ToString() ,
+                                     "Okay");
                         DisplayAlert("Error", "Incorrect format", "Okay");
                         return false;
                     } 
