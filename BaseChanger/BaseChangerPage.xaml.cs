@@ -5,16 +5,33 @@ namespace BaseChanger
 {
     public partial class BaseChangerPage : ContentPage
     {
+
+        //{'dec', 'hex', 'octal', 'binary', 'numBits'}
+        //are all variables refering to appropriate the entry field
+        //variable 'signed' refers to the switch on the bottom
+        //All Variables in Xamarin are definied in the XAML
+
+        //the two buttons have properties "Clicked"
+        //That automatically links which function is used
+        //Run button On click, runs "Run" function
+        //Clear button On click, runs "Clear" function
+
+
         //Checks if the current input has already been ran
-        public bool CurrentInputRan = false;
+        private bool CurrentInputRan = false;
+
+
+        //Constructor
         public BaseChangerPage()
         {
             InitializeComponent();
         }
+
+        //Run Function
         //If caluclate button is clicked. 
         public void Run(object Sender, EventArgs e)
         {
-            //Checks if atleast one field is enterd. 
+            //Checks if atleast one field is entered. 
             if ((dec.Text == "" || dec.Text == null) &&
                 (hex.Text == "" || hex.Text == null) &&
                 (octal.Text == "" || octal.Text == null) &&
@@ -44,8 +61,9 @@ namespace BaseChanger
                     notSigned();
                 }
             }
-
         }
+
+        //Listens if Text Has been changed. 
         public void TextChange(object sender, EventArgs e){
             if (CurrentInputRan)
                 Clear(null, null);
@@ -53,11 +71,15 @@ namespace BaseChanger
                 
             }
         }
+
+        //Checks if the Edit text where Bits are entered
         public void BitBoxChanged(object sender, EventArgs e)
         {
             signed.IsToggled = true;
         }
-        //Function is run if the bottom toggle is on. 
+
+        //Function is run when calculate is clicked and 
+        //if we are checking for signed digits 
         public void isSigned(){
             if (dec.Text != null){
                 try
@@ -83,8 +105,6 @@ namespace BaseChanger
                 catch (Exception ex)
                 {
                     DisplayAlert("Error", "Invalid input", "Okay");
-
-
                 }
 
             }
@@ -145,7 +165,9 @@ namespace BaseChanger
                 DisplayAlert("Error", "You must clear feilds", "Okay");
             }
         }
-        //function is run if the toggle is off
+
+        //Function is run when calculate is clicked and 
+        //if we are NOT checking for signed digits 
         public void notSigned(){
             if (dec.Text != null)
             {
@@ -195,7 +217,8 @@ namespace BaseChanger
             }
 
         }
-        //Clears Datafields. 
+
+        //Clears Datafields. Run when clear button is clicked
         public void Clear(object Sender, EventArgs e){
             binary.Text = null;
             octal.Text = null;
@@ -209,9 +232,15 @@ namespace BaseChanger
             numBits.Placeholder = "16";
             signed.IsToggled = false;
             CurrentInputRan = false;
-
-            
         }
+
+        //NOTE: ALL CONVERSION FUNCTIONS ARE RUN BY TAKING THE INPUT THAT ALREADY
+        //EXISTS IN THE ENTRY FIELDS, AND RETURNS A STRING. YOU MUST HAVE DATA
+        //ALREADY iN THE FIELD ORIGINAL FIELD THAT IS BEING CONVERTED
+        //THIS EFFECTS THE ORDER INWHICH THESE FUNCTIONS NEED TO BE RUN
+        //Bad design choice on my part, I should have kept a private string 
+        //value for each input field. 
+
         //Takes binary field, and converts it to an integer. 
         public String BinaryToDecimal(){
             double ans = 0;
@@ -227,6 +256,7 @@ namespace BaseChanger
             }
             return ans.ToString();
         }
+
         //Takes the binary value and returns an octal value
         public String BinaryToOctal()
         {
@@ -234,6 +264,7 @@ namespace BaseChanger
 			long value = Convert.ToInt64(b, 2);
             return Convert.ToString(value, 8);
 		}
+
         //Takes the binary value and returns a Hex value
 		public String BinaryToHex()
 		{
@@ -241,12 +272,14 @@ namespace BaseChanger
 			long value = Convert.ToInt64(b, 2);
 			return Convert.ToString(value, 16);
 		}
+
         //Takes the decimal value and returns a binary value
         public String DecimalToBinary(){
             String d = dec.Text;
 			long value = Convert.ToInt64(d, 10);
 			return Convert.ToString(value, 2);
         }
+
         //Takes the Hex value and returns a binary value
 		public String HexToBinary()
 		{
@@ -254,6 +287,7 @@ namespace BaseChanger
 			long value = Convert.ToInt64(h, 16);
 			return Convert.ToString(value, 2);
 		}
+
         //Takes the Octal value and returns a binary value
 		public String OctalToBinary()
 		{
@@ -261,24 +295,25 @@ namespace BaseChanger
 			long value = Convert.ToInt64(o, 8);
 			return Convert.ToString(value, 2);
 		}
+
         //Returns the twos compliment of the binary value
         public String TwosCompliment()
         {
-
-                StringBuilder flip = new StringBuilder();
-                char[] b = addZeros().ToCharArray();
-                for (int i = 0; i < b.Length; i++)
-                {
-                    if (b[i] == '0')
-                        flip.Append("1");
-                    else
-                        flip.Append("0");
-                }
-                int flipped = Convert.ToInt32(flip.ToString(), 2);
-                int one = Convert.ToInt32("1", 2);
-                return Convert.ToString(flipped + one, 2);
+            StringBuilder flip = new StringBuilder();
+            char[] b = addZeros().ToCharArray();
+            for (int i = 0; i < b.Length; i++)
+            {
+                if (b[i] == '0')
+                    flip.Append("1");
+                else
+                    flip.Append("0");
+            }
+            int flipped = Convert.ToInt32(flip.ToString(), 2);
+            int one = Convert.ToInt32("1", 2);
+            return Convert.ToString(flipped + one, 2);
         }
-        //Returns a binary value with the correct amount of bits, according 
+
+        //Returns a string binary value with the correct amount of bits, according 
         //to how many signed bits. 
         public String addZeros()
         {
@@ -297,6 +332,7 @@ namespace BaseChanger
                 return bin;
             }
         }
+
         //Checks Binary Format 
         public bool checkBinary(){
             bool ans = true;
@@ -317,6 +353,7 @@ namespace BaseChanger
             }
             return ans;
         }
+
         //Checks decimal format
         public bool checkDecimal()
         {
