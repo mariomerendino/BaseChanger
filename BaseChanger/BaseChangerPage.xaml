@@ -1,33 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- Xamarin Forms content Page --> 
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:local="clr-namespace:BaseChanger" x:Class="BaseChanger.BaseChangerPage" BackgroundColor = "#303030">
-    
+
+    <!-- Entire layout is on a scroll layout vertially -->
     <ScrollView Orientation = "Vertical">
-    <StackLayout HorizontalOptions = "Center" VerticalOptions = "Center" >
-            <Label FontSize = "24" Text = "Base Changer!" Margin="-25, 0, 0, 25" />
-            <StackLayout Orientation="Horizontal">
-                <Label VerticalOptions = "Center" FontSize = "12" Text= "Binary"/>
-                <Entry  VerticalOptions = "Center" FontSize = "12" x:Name= "binary" Placeholder = "Binary                         "/>
-            </StackLayout>
-            <StackLayout Orientation="Horizontal">
-                <Label VerticalOptions = "Center" FontSize = "12" Text= "Octal"/>
-                <Entry VerticalOptions = "Center" FontSize = "12" x:Name= "octal" Placeholder = "Octal                            "/>
-            </StackLayout>
-             <StackLayout Orientation="Horizontal">
-                <Label VerticalOptions = "Center" FontSize = "12" Text= "Hexadecimal"/>
-                <Entry VerticalOptions = "Center" FontSize = "12" x:Name= "hex" Placeholder = "Hexadecimal "/>
-            </StackLayout>        
-            <StackLayout Orientation="Horizontal">
-                <Label VerticalOptions = "Center" FontSize = "12" Text= "Decimal"/>
-                <Entry VerticalOptions = "Center" FontSize = "12" x:Name= "dec" Placeholder = "Decimal                  "/>
-            </StackLayout>
-            <Button x:Name = "convert" Clicked = "Run" Text = "Convert!"/>
-            <Button x:Name = "clear" Clicked = "Clear" Text = "Clear"/>
-            <StackLayout Orientation="Horizontal">
-                <Label VerticalOptions = "Center" FontSize = "12" Text= "Signed?" />
-                <Switch VerticalOptions = "Center" x:Name = "signed"/>
-                <Label  VerticalOptions = "Center" FontSize = "12" Text= "Bits?" />
-                <Entry VerticalOptions = "Center" FontSize = "12" x:Name = "numBits" Placeholder = "16"/>
-            </StackLayout>
-    </StackLayout>
+        <!-- Entire layout is is a Vertically stacking layout
+        with horizontal stack layouts simulating a grid.  -->    
+        <StackLayout Orientation="Vertical" HorizontalOptions = "Center" VerticalOptions = "Center" >
+                <!--Main Label-->
+                <Label FontSize = "24" Text = "Base Changer!" Margin="-25, 0, 0, 25" />
+                <!--FIRST horizontal Stacklayout for binary label & input -->
+                <StackLayout Orientation="Horizontal">
+                    <Label VerticalOptions = "Center" FontSize = "12" Text= "Binary"/>
+                    <Entry  VerticalOptions = "Center" FontSize = "12" x:Name= "binary" Placeholder = "Binary                         "/>
+                </StackLayout>
+                <!--horizontal Stacklayout for octal label & input -->                       
+                <StackLayout Orientation="Horizontal">
+                    <Label VerticalOptions = "Center" FontSize = "12" Text= "Octal"/>
+                    <Entry VerticalOptions = "Center" FontSize = "12" x:Name= "octal" Placeholder = "Octal                            "/>
+                </StackLayout>
+                <!--horizontal Stacklayout for Hexadecimal label & input -->                                             
+                <StackLayout Orientation="Horizontal">
+                    <Label VerticalOptions = "Center" FontSize = "12" Text= "Hexadecimal"/>
+                    <Entry VerticalOptions = "Center" FontSize = "12" x:Name= "hex" Placeholder = "Hexadecimal   "/>
+                </StackLayout>
+                <!--horizontal Stacklayout for Decimal label & input -->                                             
+                <StackLayout Orientation="Horizontal">
+                    <Label VerticalOptions = "Center" FontSize = "12" Text= "Decimal"/>
+                    <Entry VerticalOptions = "Center" FontSize = "12" x:Name= "dec" Placeholder = "Decimal                   "/>
+                </StackLayout>
+                <!--Buttons for Convert & Clear --> 
+                <Button x:Name = "convert" Clicked = "Run" Text = "Convert!"/>
+                <Button x:Name = "clear" Clicked = "Clear" Text = "Clear"/>
+                <!-- Stack Layout For signed Digits --> 
+                <StackLayout Orientation="Horizontal">
+                    <Label VerticalOptions = "Center" FontSize = "12" Text= "Signed?" />
+                    <Switch VerticalOptions = "Center" x:Name = "signed"/>
+                    <Label  VerticalOptions = "Center" FontSize = "12" Text= "Bits?" />
+                    <Entry VerticalOptions = "Center" FontSize = "12" x:Name = "numBits" Placeholder = "16"/>
+                </StackLayout>
+        </StackLayout>
     </ScrollView>
 </ContentPage>
